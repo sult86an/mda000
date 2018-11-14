@@ -1,0 +1,62 @@
+{% extends 'initiatives/base.html' %}
+{% block title %}المبادرات{% endblock %}
+{% block body %}
+<style>
+#weekly_reports:hover{
+    background-color: #eaeaea !important;
+}
+
+</style>
+     <div class="container">
+     <h4 class="text-center">التقارير الأسبوعية للمبادرات</h4>
+         <div class="row" >
+              <div class="col-1"></div>
+              <div class="col-5 text-center" style="margin-top: 1.5%;">
+                  <div >
+                      <div>
+                      <h5 class="d-inline" >عنوان المبادرة: &nbsp;</h5>
+                      <h5 class="d-inline" style=" color: #933939;">{{ initi.mub_name }}</h5>
+                  </div>
+                  </div>
+              </div>
+              <div class="col-5 text-center" style="margin-top: 1.5%;">
+                  <div>
+                      <div>
+                          <h5 class="d-inline">قائد المبادرة: &nbsp; </h5>
+                          <h5 class="d-inline"  style=" color: #933939;">{{ initi.leader }}</h5>
+                      </div>
+                  </div>
+              </div>
+               <div class="col-1"></div>
+          </div>
+         <hr style="width: 80%">
+
+               <div class="row">
+                 <div class="col-3"></div>
+                 <div class="col-6" >
+                      {% for mub in initi.reports_set.all  %}
+                            <a href="{% url 'initiatives:detail' mub.mub_r.id  mub.week_no mub.id  %}  " style=" text-decoration: none !important; color: #1b1e21">
+                                <ul class="" style="background: none; !important;">
+                                    <li id="weekly_reports" class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ mub.week_ar  }}
+                                    {% for com in mub.comment_set.all %}
+                                        <span style="text-align: left; font-size: 11px">تم التقييم &nbsp;
+                                        <i class="fas fa-check-circle" title="تم التقييم" style="color: green; font-size: 17px !important;"></i></span>
+                                    {% empty %}
+                                        <span style="text-align: left; font-size: 11px">لم يتم التقييم &nbsp;
+                                        <i class="fas fa-info-circle" title="لم يتم التقييم" style="color: orange; font-size: 17px !important;"></i></span>
+                                    {% endfor %}
+                                    </li>
+                                </ul>
+                            </a>
+                      {% endfor %}
+                 </div>
+                 <div class="col-3">
+                 </div>
+              </div>
+
+
+
+     </div>
+
+{% endblock %}
